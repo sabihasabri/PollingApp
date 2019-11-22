@@ -1,4 +1,4 @@
-"""PollingApp URL Configuration
+"""REST_API URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -13,15 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include 
-from rest_framework.authtoken.views import obtain_auth_token  
+from django.urls import path, include
+from accounts.api.views import UserCreate, Logout
+
+app_name = 'accounts'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # path('api-auth/', include('rest_framework.urls')),
-    # path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
-    path('api/polls/', include('startPolling.api.urls', namespace='api-polls')), 
-    path('account/', include('accounts.api.urls')),
-    # path('', include('social_django.urls', namespace='social')) 
+    
+    path('register/', UserCreate.as_view(), name="register"),  
+    path('logout/', Logout.as_view(), name="logout"), 
+
 ]

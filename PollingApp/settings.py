@@ -39,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'startPolling', 
     'rest_framework', 
+    'accounts',
+    'rest_framework.authtoken', 
+    # 'social_django',
+    # 'threadedcomments',
+    # 'fluent_comments',
+    # 'django_comments',
+        
 ]
 
 MIDDLEWARE = [
@@ -64,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'social_django.context_processors.backends',
+                # 'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -78,7 +87,7 @@ WSGI_APPLICATION = 'PollingApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'data',
+        'NAME': 'startpolling',
         'USER': 'dbuser',
         'PASSWORD': 'sabiha',
         'HOST': 'localhost',
@@ -126,11 +135,45 @@ USE_TZ = True
 STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+LOGIN_REDIRECT ='api/polls/'
+
+
+# APPEND_SLASH=False
+
+DATETIME_FORMAT = '%d-%m-%Y'
+
+
+
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '810109738698-o6mk2tv0os8231g8pq8m92obeg32f3q5.apps.googleusercontent.com'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'fX6W8JvogLcK9c6E9ig6_atl'
+
+# AUTHENTICATION_BACKENDS = (
+#     'social_core.backends.google.GooglePlusAuth',
+# )
+# SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+# SOCIAL_AUTH_PIPELINE = (
+#     'social_core.pipeline.social_auth.social_details',
+#     'social_core.pipeline.social_auth.social_uid',
+#     'social_core.pipeline.social_auth.social_user',
+#     'social_core.pipeline.user.get_username',
+#     'social_core.pipeline.user.create_user',
+#     'social_core.pipeline.social_auth.associate_user',
+#     'social_core.pipeline.social_auth.load_extra_data',
+#     'social_core.pipeline.user.user_details',
+#     'social_core.pipeline.social_auth.associate_by_email',
+# )
+
+# COMMENTS_APP = 'fluent_comments'
+# FLUENT_COMMENTS_FORM_CLASS = 'fluent_comments.forms.CompactLabelsCommentForm'
+# FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url', 'title')
+# SITE_ID = 1

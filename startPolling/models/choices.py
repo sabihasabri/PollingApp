@@ -7,3 +7,7 @@ class Choice(models.Model):
     
     def __str__(self): 
         return self.choice_text 
+
+    # @property
+    # def choiceproperty(self): 
+    #     return self.question.choiceproperty.id
