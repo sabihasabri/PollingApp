@@ -23,5 +23,6 @@ urlpatterns = [
     # path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path('api/polls/', include('startPolling.api.urls', namespace='api-polls')), 
     path('account/', include('accounts.api.urls')),
+    path('auth/', include('rest_framework_social_oauth2.urls')),
     # path('', include('social_django.urls', namespace='social')) 
 ]

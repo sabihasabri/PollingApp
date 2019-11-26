@@ -41,10 +41,9 @@ INSTALLED_APPS = [
     'rest_framework', 
     'accounts',
     'rest_framework.authtoken', 
-    # 'social_django',
-    # 'threadedcomments',
-    # 'fluent_comments',
-    # 'django_comments',
+    'oauth2_provider',
+    'social_django', 
+    'rest_framework_social_oauth2',
         
 ]
 
@@ -71,8 +70,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'social_django.context_processors.backends',
-                # 'social_django.context_processors.login_redirect',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -129,17 +128,13 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  
+        'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
 }
 
@@ -153,27 +148,25 @@ DATETIME_FORMAT = '%d-%m-%Y'
 
 
 
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '810109738698-o6mk2tv0os8231g8pq8m92obeg32f3q5.apps.googleusercontent.com'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'fX6W8JvogLcK9c6E9ig6_atl'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '810109738698-qgio0nha7kmedkgvvi5plh0l8c9afkej.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'lU-Yp3mD6AsPn-tCeu3Mzlti'
 
-# AUTHENTICATION_BACKENDS = (
-#     'social_core.backends.google.GooglePlusAuth',
-# )
-# SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+AUTHENTICATION_BACKENDS = (
+   'social_core.backends.google.GoogleOAuth2',
+   'rest_framework_social_oauth2.backends.DjangoOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
+)
 
-# SOCIAL_AUTH_PIPELINE = (
-#     'social_core.pipeline.social_auth.social_details',
-#     'social_core.pipeline.social_auth.social_uid',
-#     'social_core.pipeline.social_auth.social_user',
-#     'social_core.pipeline.user.get_username',
-#     'social_core.pipeline.user.create_user',
-#     'social_core.pipeline.social_auth.associate_user',
-#     'social_core.pipeline.social_auth.load_extra_data',
-#     'social_core.pipeline.user.user_details',
-#     'social_core.pipeline.social_auth.associate_by_email',
-# )
 
-# COMMENTS_APP = 'fluent_comments'
-# FLUENT_COMMENTS_FORM_CLASS = 'fluent_comments.forms.CompactLabelsCommentForm'
-# FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url', 'title')
-# SITE_ID = 1
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+)
+
